@@ -29,6 +29,7 @@ from torch.fx._compatibility import compatibility
 from torch.fx.passes.infra.pass_base import PassResult
 from torch.fx.passes.infra.pass_manager import PassManager
 
+
 from torch.utils._pytree import (
     FlattenFunc,
     FromDumpableContextFn,
@@ -251,6 +252,10 @@ def save(
 
     """
     from torch._export import save
+
+    if not isinstance(ep, ExportedProgram):
+        raise TypeError("The 'ep' parameter must be an instance of 'ExportedProgram'.")
+
 
     save(ep, f, extra_files=extra_files, opset_version=opset_version)
 
